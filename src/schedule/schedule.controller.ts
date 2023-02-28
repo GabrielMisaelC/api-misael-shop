@@ -3,6 +3,7 @@ import { ScheduleService } from './schedule.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateScheduleServiceDto } from './dto/create-scheduleService.dto';
+import { CreateCompletedServiceDto } from './dto/create-completedService.dto';
 
 @Controller('schedule')
 export class ScheduleController {
@@ -13,11 +14,20 @@ export class ScheduleController {
     return this.scheduleService.create(createScheduleDto);
   }
 
-  @Post('/:scheduleService')
+  @Post('/scheduleService')
   createScheduleService(@Body() createScheduleServiceDto: CreateScheduleServiceDto) {
     return this.scheduleService.createScheduleService(createScheduleServiceDto);
   }
 
+  @Post('/completedService')
+  createCompletedService(@Body() createCompletedService: CreateCompletedServiceDto) {
+    return this.scheduleService.createCompletedService(createCompletedService);
+  }
+
+  @Get('/countServices/:id')
+  countServicesCompleted(@Param('id') id: string){
+    return this.scheduleService.countServicesCompleted(+id);
+  }
 
   @Get()
   findAll() {
